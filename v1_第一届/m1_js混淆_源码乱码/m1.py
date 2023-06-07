@@ -2,7 +2,7 @@
 # @Time    : 2023/5/25 13:26
 # @Author  : lzc
 # @Email   : hybpjx@163.com
-# @File    : m1.py
+# @File    : m1_魔改标准算法.py
 # @Software: PyCharm
 # @blog    : https://www.cnblogs.com/zichliang
 

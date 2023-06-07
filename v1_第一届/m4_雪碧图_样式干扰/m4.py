@@ -114,7 +114,7 @@ def get_data(page):
         base64_img_list = re.findall(r'src="data:image/png;base64,(.*?)"', td)
         left_offset_number_list = re.findall(r'style="left:(.*?)px"', td)
 
-        print(len(img_number_list), len(base64_img_list), len(left_offset_number_list))
+        # print(len(img_number_list), len(base64_img_list), len(left_offset_number_list))
 
         num_list = []
         display_img_base64_list = []
@@ -132,7 +132,8 @@ def get_data(page):
             offset_list.append(left_offset_number_list[index])
         #     print(left_offset_number_list[index])
         # print(len(num_list), len(display_img_base64_list), len(offset_list))
-        print("css偏移量 像素 px>>>>>>>", offset_list)
+        print("css偏移量 像素(px) >>>>>>>", offset_list)
+        print("数字列表>>>>",num_list)
         # 传入 映射好的数字列表，偏移量列表，对应好数字的
         true_order_num = get_correct_order(num_list, offset_list)
         print("真实的数字>>>>", true_order_num)
@@ -143,6 +144,7 @@ def get_data(page):
 # 此函数用于算出正确排列后的数字
 def get_correct_order(num_list, offset_list):
     offset_list = [int(float(i) / 11) for i in offset_list]
+    # print("css偏移量 像素(px) >>>>>>>", offset_list)
     true_order_list = [None] * len(offset_list)
     for index, offset in enumerate(offset_list):
         true_order_list[int(index + offset)] = str(num_list[index])

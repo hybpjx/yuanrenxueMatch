@@ -51,7 +51,6 @@ def get_data(pageNum):
     except:
         print(res2.text)
         print("某些headers参数错了 校验参数后再运行吧")
-        exit(1)
 
 
 if __name__ == '__main__':
