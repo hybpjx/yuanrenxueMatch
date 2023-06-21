@@ -27,6 +27,8 @@ class M7:
 
         self.url = "https://match.yuanrenxue.cn/api/match/7"
 
+        self.rank_list = []
+
     def get_data(self, page):
         params = {
             "page": page
@@ -45,7 +47,7 @@ class M7:
         with open(self.woff_file_name, 'wb') as f:
             f.write(data)
 
-    def old_parse_woff_data(self):
+    def parse_woff_data(self):
         # 用xml提取出来 on值和value值.
         font_obj = TTFont(self.woff_file_name)
         font_obj.saveXML(self.xml_file_name)
@@ -87,18 +89,20 @@ class M7:
         zhs_name = ctx.call("get_name", page)
         return zhs_name
 
-    def main(self):
+    def v1_main(self):
         true_map = {}
         for i in range(1, 6):
             # 调用方法
             base64_woff, font_encrypt_list = self.get_data(i)
             # 下载
             self.downLoad_woff(base64_woff)
-            map_rs = self.old_parse_woff_data()
+            map_rs = self.parse_woff_data()
+            print(map_rs)
             for k, v in map_rs.items():
                 # print(f.replace(k,v))
                 font_encrypt_list = re.sub(k, v, str(font_encrypt_list))
             zhs_name_list = self.get_zhs_name(i)
+            print(font_encrypt_list)
             # 然后用胜点和召唤师姓名 得到一个对应的表
             for zhs, sd in zip(zhs_name_list, eval(font_encrypt_list)):
                 true_map[zhs] = sd
@@ -109,4 +113,4 @@ class M7:
 
 
 if __name__ == '__main__':
-    M7().main()
+    M7().v1_main()
